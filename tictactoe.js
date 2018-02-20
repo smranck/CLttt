@@ -68,7 +68,4 @@ Game.prototype = {
   },
 };
 
-let game = new Game();
-game.display();
-game.move(4);
-game.move(5);
+module.exports = { Game };

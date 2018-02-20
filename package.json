@@ -2,10 +2,10 @@
   "name": "clttt",
   "version": "1.0.0",
   "description": "Command line tic-tac-toe app",
-  "main": "tictactoe.js",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node tictactoe.js"
+    "start": "node index.js"
   },
   "repository": {
     "type": "git",
