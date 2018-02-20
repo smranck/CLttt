@@ -28,3 +28,47 @@
 // Submission instructions
 // ====================
 // Upon completion of your work, submit a link to the repository via this form.
+
+/* plan:
+Need a board. an array of 3 arrays
+
+*/
+
+const Game = function() {
+  this.board = [null, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+  this.playerOneTurn = true;
+};
+
+Game.prototype = {
+  display: function() {
+    console.log(this.board.slice(1, 4));
+    console.log(this.board.slice(4, 7));
+    console.log(this.board.slice(7, 10));
+    this.playerOneTurn
+      ? console.log('Ready Player One')
+      : console.log('Ready Player 2');
+  },
+  move: function(square) {
+    // need to check if the square is an X or an O already
+    // if not, make that square an X
+    // if so, return something
+    // need to return the board after
+    if (this.board[square] !== square) {
+      console.log("Square's occupied");
+      return false;
+    }
+    this.playerOneTurn
+      ? (this.board[square] = 'X')
+      : (this.board[square] = 'O');
+    this.playerOneTurn
+      ? (this.playerOneTurn = false)
+      : (this.playerOneTurn = true);
+    this.display();
+    console.log(this);
+  },
+};
+
+let game = new Game();
+game.display();
+game.move(4);
+game.move(5);
