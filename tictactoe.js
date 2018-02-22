@@ -1,10 +1,3 @@
-// Make a command line tic-tac-toe game from scratch for two players.
-// Expected features
-// ===============
-// * Minimal UI that redraws the board and makes clear whose turn it is, each turn.
-// * Players can submit moves (assume, admittedly unrealistically, that both players are sitting at the same keyboard).
-// * Win detection - detect and display who won
-
 // Bonus / stretch goals (any or all of the following)
 // =======================================
 // * Structure your code such that the UI can be turned easily into a native mobile app (iOS say) without having to rewrite the core game logic.
@@ -23,20 +16,12 @@
 // * Don't forget to push your final solution up to Github.
 // * Add a professional-looking README file with installation and usage instructions.
 
-// Try your best to work on this challenge without referring to outside resources. However, if you have to look things up online, go ahead.
-
-// Submission instructions
-// ====================
-// Upon completion of your work, submit a link to the repository via this form.
-
-/* plan:
-Need a board. an array of 3 arrays
-
-*/
-
+/* eslint func-names: 0  */
+/* eslint object-shorthand: 0  */
 const Game = function() {
   this.board = [null, 1, 2, 3, 4, 5, 6, 7, 8, 9];
   this.playerOneTurn = true;
+  this.turnCounter = 0;
 };
 
 Game.prototype = {
@@ -44,27 +29,66 @@ Game.prototype = {
     console.log(this.board.slice(1, 4));
     console.log(this.board.slice(4, 7));
     console.log(this.board.slice(7, 10));
-    this.playerOneTurn
-      ? console.log('Ready Player One')
-      : console.log('Ready Player 2');
+    if (this.playerOneTurn) {
+      console.log('Ready Player One');
+    } else {
+      console.log('Ready Player Two');
+    }
+  },
+  isWinner: function() {
+    // check for win here. return winner or false
+    let winners = [
+      [1, 2, 3],
+      [4, 5, 6],
+      [7, 8, 9],
+      [1, 4, 7],
+      [2, 5, 8],
+      [3, 6, 9],
+      [1, 5, 9],
+      [3, 5, 7],
+    ];
+    let winner = null;
+    for (let i = 0; i < winners.length; i += 1) {
+      if (
+        this.board[winners[i][0]] === this.board[winners[i][1]] &&
+        this.board[winners[i][1]] === this.board[winners[i][2]]
+      ) {
+        if (this.board[winners[i][0]] === 'X') {
+          winner = 'Player One Wins!';
+        } else {
+          winner = 'Player Two Wins!';
+        }
+      } else if (this.turnCounter === 9) {
+        winner = 'Another Tie!';
+      }
+    }
+    return winner;
   },
   move: function(square) {
-    // need to check if the square is an X or an O already
-    // if not, make that square an X
-    // if so, return something
-    // need to return the board after
-    if (this.board[square] !== square) {
-      console.log("Square's occupied");
+    if (isNaN(Number(square)) || square < 1 || square > 9) {
+      console.log("You fool! That isn't a square!");
+      console.log(typeof square);
+      if (this.playerOneTurn) {
+        console.log('Ready Player One');
+      } else {
+        console.log('Ready Player 2');
+      }
       return false;
     }
-    this.playerOneTurn
-      ? (this.board[square] = 'X')
-      : (this.board[square] = 'O');
-    this.playerOneTurn
-      ? (this.playerOneTurn = false)
-      : (this.playerOneTurn = true);
+    if (this.board[square] === 'X' || this.board[square] === 'O') {
+      console.log("Square's occupied, try again");
+      return false;
+    }
+    if (this.playerOneTurn) {
+      this.board[square] = 'X';
+      this.playerOneTurn = false;
+      this.turnCounter += 1;
+    } else {
+      this.board[square] = 'O';
+      this.playerOneTurn = true;
+      this.turnCounter += 1;
+    }
     this.display();
-    console.log(this);
   },
 };
 
