@@ -19,7 +19,7 @@
 /* eslint func-names: 0  */
 /* eslint object-shorthand: 0  */
 const Game = function() {
-  this.board = [null, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+  this.board = [null, '1', '2', '3', '4', '5', '6', '7', '8', '9'];
   this.playerOneTurn = true;
   this.turnCounter = 0;
 };
